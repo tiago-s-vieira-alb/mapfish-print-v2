@@ -1,0 +1,57 @@
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+repositories {
+    maven {url "http://repo.opengeo.org/"}
+    maven {url "http://maven.restlet.org"}
+}
+
+configurations {
+    geoserver
+}
+
+dependencies {
+    geoserver ('org.geoserver.web:web-app:2.4.3') {
+        transitive = false;
+    }
+    testCompile ("junit:junit:${project.junitVersion}")
+}
+
+def geoserverDir = "$buildDir/geoserver"
+
+task extractGeoserver (type: Copy) {
+    description "Extract the Geoserver web app jar and files in src/main/webapp into a directory to use for the jettyRun task"
+    from zipTree(configurations.geoserver.singleFile)
+    from fileTree("src/main/webapp") {include '**'}
+    into geoserverDir
+}
+
+jettyRun {
+    dependsOn extractGeoserver
+    description 'Start the Geoserver Test Server'
+    httpPort = 9876
+    daemon = false
+    contextPath = 'e2egeoserver'
+    webAppSourceDirectory = file(geoserverDir)
+    stopKey = "e2e-tests-geoserver"
+    stopPort = 9877
+    reload = 'manual'
+}
+
+String interactiveExpression = '**/*Interactive.java'
+test {
+    dependsOn ':compileJava', 'testClasses', jettyRunWar
+    description 'Runs all automated e2e (integration) tests.'
+    maxParallelForks = Runtime.getRuntime().availableProcessors();
+    exclude interactiveExpression
+}
+
+task testInteractive (dependsOn: test, type: Test) {
+    description 'Runs all automated e2e (integration) tests as well as the tests that require user input for tests verification.'
+    maxParallelForks = Runtime.getRuntime().availableProcessors();
+    include interactiveExpression
+}
+
+//uploadArchives {
+//    // do nothing because this project doesn't upload anything
+//}
