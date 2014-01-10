@@ -18,7 +18,7 @@ dependencies {
 }
 
 def geoserverDir = "$buildDir/geoserver"
-
+def geoserverDataDir = geoserverDir+"/data"
 task extractGeoserver (type: Copy) {
     description "Extract the Geoserver web app jar and files in src/main/webapp into a directory to use for the jettyRun task"
     from zipTree(configurations.geoserver.singleFile)
@@ -26,11 +26,27 @@ task extractGeoserver (type: Copy) {
     into geoserverDir
 }
 
+extractGeoserver.doLast {
+    def offLoggingConfig = new File(geoserverDataDir, "logs/OFF_LOGGING.properties")
+    if (!offLoggingConfig.exists()) {
+        logger.info("Writing an updated Geoserver log configuration to suppress geoserver output")
+        new File(geoserverDataDir, "logging.xml").setText("""<logging>
+  <level>OFF_LOGGING.properties</level>
+  <location>${geoserverDir}/geoserver.log</location>
+  <stdOutLogging>false</stdOutLogging>
+</logging>""", "UTF-8")
+
+        offLoggingConfig.parentFile.mkdirs()
+        offLoggingConfig.setText("""log4j.debug=FALSE
+log4j.rootLogger=OFF""", "UTF-8")
+    }
+}
+
 jettyRun {
     dependsOn extractGeoserver
     description 'Start the Geoserver Test Server'
     httpPort = 9876
-    daemon = false
+    daemon = Boolean.parseBoolean(System.getProperty("jettyDaemon", "true"))
     contextPath = 'e2egeoserver'
     webAppSourceDirectory = file(geoserverDir)
     stopKey = "e2e-tests-geoserver"
@@ -40,13 +56,13 @@ jettyRun {
 
 String interactiveExpression = '**/*InteractiveTest.java'
 test {
-    dependsOn ':compileJava', 'testClasses', jettyRunWar
+    dependsOn ':compileJava', 'testClasses', jettyRun
     description 'Runs all automated e2e (integration) tests.'
     maxParallelForks = Runtime.getRuntime().availableProcessors();
     exclude interactiveExpression
 }
 
-task testInteractive (dependsOn: test, type: Test) {
+task interactiveTest (dependsOn: test, type: Test) {
     description 'Runs all automated e2e (integration) tests as well as the tests that require user input for tests verification.'
     maxParallelForks = Runtime.getRuntime().availableProcessors();
     include interactiveExpression

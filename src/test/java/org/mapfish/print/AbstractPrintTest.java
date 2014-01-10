@@ -2,14 +2,8 @@ package org.mapfish.print;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfWriter;
-import javafx.scene.transform.Affine;
-import org.apache.pdfbox.PDFBox;
-import org.apache.pdfbox.cos.*;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDResources;
-import org.apache.pdfbox.pdmodel.common.COSDictionaryMap;
-import org.apache.pdfbox.pdmodel.graphics.xobject.PDXObjectImage;
 import org.mapfish.print.config.layout.Layout;
 import org.mapfish.print.utils.PJsonObject;
 import org.pvalsecc.misc.FileUtilities;
@@ -23,10 +17,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
@@ -80,7 +76,6 @@ public abstract class AbstractPrintTest {
 
         addImage(pane, expected, "Expected", false);
         addImage(pane, actual, "Actual", true);
-
 
 
         frame.setSize(pane.getPreferredSize());
