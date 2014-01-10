@@ -20,5 +20,5 @@ Both tasks are gradle test tasks and more details on how to run single tests or 
 
 # Writing Tests
 
-There are two types of tests.  All classes that end in _Interactive_ will be ran only during the testInteractive task.  All other junit
+There are two types of tests.  All classes that end in _InteractiveTest_ will be ran only during the testInteractive task.  All other junit
  tests will be ran during the normal test task.

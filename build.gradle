@@ -14,7 +14,7 @@ dependencies {
     geoserver ('org.geoserver.web:web-app:2.4.3') {
         transitive = false;
     }
-    testCompile ("junit:junit:${project.junitVersion}")
+    testCompile (rootProject, "junit:junit:${project.junitVersion}", 'org.mockito:mockito-core:1.9.5')
 }
 
 def geoserverDir = "$buildDir/geoserver"
@@ -38,7 +38,7 @@ jettyRun {
     reload = 'manual'
 }
 
-String interactiveExpression = '**/*Interactive.java'
+String interactiveExpression = '**/*InteractiveTest.java'
 test {
     dependsOn ':compileJava', 'testClasses', jettyRunWar
     description 'Runs all automated e2e (integration) tests.'
