@@ -26,7 +26,7 @@ tests will be ran during the normal test task.
 By default the test server is in daemon mode, which mean that the servers will be run in a background thread and be shutdown when
 the build completes.  In order to be able to run the tests in a IDE there is a one can run:
 
-     ./gradlew jettyRun -DjettyDaemon=false
+     ./gradlew :e2e-tests:jettyRun -DjettyDaemon=false
 
 This will start the test servers in non-daemon mode allowing one to start the server and then run tests you IDE against that server for
 development.

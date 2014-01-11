@@ -28,18 +28,16 @@ task extractGeoserver (type: Copy) {
 
 extractGeoserver.doLast {
     def offLoggingConfig = new File(geoserverDataDir, "logs/OFF_LOGGING.properties")
-    if (!offLoggingConfig.exists()) {
-        logger.info("Writing an updated Geoserver log configuration to suppress geoserver output")
-        new File(geoserverDataDir, "logging.xml").setText("""<logging>
+    logger.info("Writing an updated Geoserver log configuration to suppress geoserver output")
+    new File(geoserverDataDir, "logging.xml").setText("""<logging>
   <level>OFF_LOGGING.properties</level>
   <location>${geoserverDir}/geoserver.log</location>
   <stdOutLogging>false</stdOutLogging>
 </logging>""", "UTF-8")
 
-        offLoggingConfig.parentFile.mkdirs()
-        offLoggingConfig.setText("""log4j.debug=FALSE
+    offLoggingConfig.parentFile.mkdirs()
+    offLoggingConfig.setText("""log4j.debug=FALSE
 log4j.rootLogger=OFF""", "UTF-8")
-    }
 }
 
 jettyRun {
@@ -54,9 +52,9 @@ jettyRun {
     reload = 'manual'
 }
 
-String interactiveExpression = '**/*InteractiveTest.java'
+String interactiveExpression = '**/*InteractiveTest.class'
 test {
-    dependsOn ':compileJava', 'testClasses', jettyRun
+    dependsOn ':compileJava', 'testClasses'
     description 'Runs all automated e2e (integration) tests.'
     maxParallelForks = Runtime.getRuntime().availableProcessors();
     exclude interactiveExpression
