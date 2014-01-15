@@ -9,7 +9,8 @@
             "type": "WMS",
             "layers": ["topp:states"],
             "baseURL": "http://@@host@@:@@port@@/e2egeoserver/wms",
-            "format": "image/gif"
+            "format": "image/gif",
+            "customParams":{"TRANSPARENT":"true","EXCEPTIONS":"INIMAGE"}
         }
     ],
     "pages": [

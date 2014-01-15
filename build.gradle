@@ -14,7 +14,7 @@ dependencies {
     geoserver ('org.geoserver.web:web-app:2.4.3') {
         transitive = false;
     }
-    testCompile (rootProject, "junit:junit:${project.junitVersion}", 'org.mockito:mockito-core:1.9.5')
+    testCompile (rootProject, "junit:junit:${project.junitVersion}", 'org.mockito:mockito-core:1.9.5', "com.google.guava:guava:15.0")
 }
 
 def geoserverDir = "$buildDir/geoserver"
@@ -54,7 +54,7 @@ jettyRun {
 
 String interactiveExpression = '**/*InteractiveTest.class'
 test {
-    dependsOn ':compileJava', 'testClasses'
+    dependsOn ':compileJava', 'testClasses', 'jettyRun'
     description 'Runs all automated e2e (integration) tests.'
     maxParallelForks = Runtime.getRuntime().availableProcessors();
     exclude interactiveExpression

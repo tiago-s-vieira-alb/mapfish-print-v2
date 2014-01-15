@@ -93,10 +93,6 @@ public abstract class AbstractPrintTest {
                 windowClosed(e);
             }
 
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-                windowClosed(e);
-            }
         });
 
         assertTrue(testResult.take().booleanValue());
