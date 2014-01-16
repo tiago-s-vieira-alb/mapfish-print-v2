@@ -1,0 +1,23 @@
+{
+    "layout": "A4 portrait",
+    "title": "A simple example",
+    "srs": "EPSG:26713",
+    "dpi": 90,
+    "units": "m",
+    "outputFormat": "pdf",
+    "layers": [        {
+            "type": "WMS",
+            "layers": ["sf:streams"],
+            "baseURL": "http://@@host@@:@@port@@/e2egeoserver/wms",
+            "format": "image/gif",
+            "version": "1.3.0",
+            "customParams":{"TRANSPARENT":"true","EXCEPTIONS":"INIMAGE"}
+        }
+    ],
+    "pages": [
+        {
+            "bbox": [589434.4971235897,4913947.342298816,609518.2117427464,4928071.049965891],
+            "rotation": 0
+        }
+    ]
+}

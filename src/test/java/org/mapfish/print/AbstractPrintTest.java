@@ -38,9 +38,9 @@ public abstract class AbstractPrintTest {
     private static final String HOST = System.getProperty("host", "localhost");
     private static final String PORT = System.getProperty("port", "9876");
 
-    protected final void interactiveComparePdfVsExpectedImage(String jsonFile, String expectedImage) throws Exception {
+    protected final void interactiveComparePdfVsExpectedImage(String configFile, String jsonFile, String expectedImage) throws Exception {
         final BufferedImage expected = ImageIO.read(AbstractPrintTest.class.getResourceAsStream(expectedImage));
-        BufferedImage actual = getMapImage(jsonFile);
+        BufferedImage actual = getMapImage(configFile, jsonFile);
 
 
         final ArrayBlockingQueue<Boolean> testResult = new ArrayBlockingQueue<Boolean>(2);
@@ -108,10 +108,9 @@ public abstract class AbstractPrintTest {
         pane.add(panel);
     }
 
-    protected final BufferedImage getMapImage(String jsonFile) throws Exception {
+    protected final BufferedImage getMapImage(String configFile, String jsonFile) throws Exception {
         AbstractXmlApplicationContext context = new ClassPathXmlApplicationContext(ShellMapPrinter.DEFAULT_SPRING_CONTEXT);
-        final String configName = "/config-onlyMap.yaml";
-        final String config = loadResource(configName);
+        final String config = loadResource(configFile);
         final MapPrinter printer = context.getBean(MapPrinter.class);
         printer.setConfig(config);
 
