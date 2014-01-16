@@ -9,14 +9,14 @@
             "type": "WMS",
             "layers": ["sf:streams"],
             "baseURL": "http://@@host@@:@@port@@/e2egeoserver/wms",
-            "format": "image/gif",
+            "format": "image/png",
             "version": "1.1.1",
             "customParams":{"TRANSPARENT":"true","EXCEPTIONS":"INIMAGE"}
         }
     ],
     "pages": [
         {
-            "bbox": [589434.4971235897,4913947.342298816,609518.2117427464,4928071.049965891],
+            "bbox": [589434.49712359,4913948.5152116,609518.21174275,4928069.8770532],
             "rotation": 0
         }
     ]

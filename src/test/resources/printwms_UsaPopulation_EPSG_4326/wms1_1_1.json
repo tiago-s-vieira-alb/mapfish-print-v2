@@ -9,14 +9,14 @@
             "type": "WMS",
             "layers": ["topp:states"],
             "baseURL": "http://@@host@@:@@port@@/e2egeoserver/wms",
-            "format": "image/gif",
+            "format": "image/png",
             "version": "1.1.1",
             "customParams":{"TRANSPARENT":"true","EXCEPTIONS":"INIMAGE"}
         }
     ],
     "pages": [
         {
-            "bbox": [-124.73142200000001,24.955967,-66.969849,49.371735],
+            "bbox": [-139.84870868359,18.549281576172,-51.852562316406,55.778420423828],
             "rotation": 0
         }
     ]

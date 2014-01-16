@@ -2,8 +2,10 @@ package org.mapfish.print;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.PdfWriter;
+import org.apache.pdfbox.pdfviewer.PageDrawer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.mapfish.print.config.layout.Layout;
 import org.mapfish.print.utils.PJsonObject;
 import org.pvalsecc.misc.FileUtilities;
@@ -23,7 +25,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import static org.junit.Assert.assertTrue;
@@ -74,11 +78,12 @@ public abstract class AbstractPrintTest {
         buttonPanel.setPreferredSize(new Dimension(100, 30));
         pane.add(buttonPanel);
 
-        addImage(pane, expected, "Expected", false);
-        addImage(pane, actual, "Actual", true);
+        addImage(pane, expected, "Expected");
+        addImage(pane, actual, "Actual");
 
 
-        frame.setSize(pane.getPreferredSize());
+        final Dimension preferredSize = pane.getPreferredSize();
+        frame.setSize((int) (preferredSize.width * 1.5), (int)(preferredSize.height + 30 * 1.5));
         frame.setAlwaysOnTop(true);
 
         frame.setVisible(true);
@@ -98,7 +103,7 @@ public abstract class AbstractPrintTest {
         assertTrue(testResult.take().booleanValue());
     }
 
-    private void addImage(Container pane, BufferedImage image, String name, boolean okButton) {
+    private void addImage(Container pane, BufferedImage image, String name) {
         JPanel panel = new JPanel(true);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
@@ -141,10 +146,35 @@ public abstract class AbstractPrintTest {
             @SuppressWarnings("unchecked")
             List<PDPage> pages = pdf.getDocumentCatalog().getAllPages();
 
-            return pages.get(0).convertToImage(BufferedImage.TYPE_4BYTE_ABGR, 90);
+            return convertToImage(pages.get(0));//.convertToImage(BufferedImage.TYPE_3BYTE_BGR, 72);
         } finally {
             pdf.close();
         }
+    }
+
+    protected BufferedImage convertToImage(PDPage pdPage) throws IOException {
+        PDRectangle mBox = pdPage.findMediaBox();
+        float widthPt = mBox.getWidth();
+        float heightPt = mBox.getHeight();
+        float scaling = 1;
+        int widthPx = Math.round(widthPt * scaling);
+        int heightPx = Math.round(heightPt * scaling);
+        //TODO The following reduces accuracy. It should really be a Dimension2D.Float.
+        Dimension pageDimension = new Dimension( (int)widthPt, (int)heightPt );
+
+        BufferedImage retval = new BufferedImage( widthPx, heightPx, BufferedImage.TYPE_3BYTE_BGR);
+        Graphics2D graphics = (Graphics2D)retval.getGraphics();
+        Map<Object, Object> hints = new HashMap<Object, Object>();
+        hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        graphics.addRenderingHints(hints);
+        graphics.setBackground( Color.WHITE );
+        graphics.clearRect(0, 0, retval.getWidth(), retval.getHeight());
+        PageDrawer drawer = new PageDrawer();
+        drawer.drawPage( graphics, pdPage, pageDimension );
+
+        graphics.dispose();
+        return retval;
     }
 
 
