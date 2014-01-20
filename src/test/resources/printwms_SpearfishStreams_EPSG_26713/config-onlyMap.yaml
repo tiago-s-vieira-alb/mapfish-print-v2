@@ -52,7 +52,7 @@ layouts:
       creator: 'MapFish'
     #-------------------------------------------------------------------------
     mainPage:
-      pageSize: 512 360
+      pageSize: 780 330
       absoluteX: 0
       absoluteY: 0
       marginLeft: 0
@@ -63,5 +63,5 @@ layouts:
       items:
         - !map
           spacingAfter: 0
-          width: 512
-          height: 360
+          width: 780
+          height: 330
