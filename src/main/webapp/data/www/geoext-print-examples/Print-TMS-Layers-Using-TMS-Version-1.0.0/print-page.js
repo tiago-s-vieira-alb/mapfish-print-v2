@@ -43,27 +43,30 @@ Ext.application({
     printPage = Ext.create('GeoExt.data.PrintPage', {
         printProvider: printProvider
     });
+    // If tile matrix identifiers differ from zoom levels (0, 1, 2, ...)
+    // then they must be explicitly provided.
 
     // The map we want to print
     mapPanel = Ext.create('GeoExt.panel.Map', {
         region: "center",
         layers: [
-            new OpenLayers.Layer.WMS(
-                Env.layers.states.name,
-                Env.wmsUrl,
-                { layers: [Env.layers.states.id], format :"image/png"},
-                { singleTile: true, isBaseLayer: true}
+             new OpenLayers.Layer.TMS(
+                Env.layers.newYork.name,
+                Env.tmsUrl,
+                {layername: Env.layers.newYork.id,type :"jpeg"}
             ),
             new OpenLayers.Layer.WMS(
-                Env.layers.roads.name,
+                Env.layers.nyRoads.name,
                 Env.wmsUrl,
-                { layers: [Env.layers.roads.id], format:"image/png", TRANSPARENT:"true" },
+                { layers: [Env.layers.nyRoads.id], format:"image/png", TRANSPARENT:"true", STYLES:Env.layers.nyRoads.style },
                 { singleTile: true, isBaseLayer: false }
             )
-
         ],
-        center: [-104, 44.7],
-        zoom: 7
+        map: {
+               projection: "EPSG:900913"
+        },
+        center: [-8236566.427097, 4976131.070529],
+        zoom: 12
     });
     // The legend to optionally include on the printout
     var legendPanel = Ext.create('GeoExt.panel.Legend',{

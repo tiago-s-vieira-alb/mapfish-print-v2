@@ -35,7 +35,7 @@ Ext.application({
     launch: function() {
     // The MapfishPrintProvider that connects us to the print service
     printProvider = Ext.create('GeoExt.data.MapfishPrintProvider', {
-        method: "GET", // "POST" recommended for production use
+        method: "POST", // "POST" recommended for production use
         capabilities: printCapabilities, // from the info.json script in the html
         customParams: {
             mapTitle: "Printing Demo",
