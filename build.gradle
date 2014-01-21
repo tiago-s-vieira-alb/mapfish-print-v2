@@ -127,7 +127,7 @@ test {
 
 task interactiveTest (dependsOn: test, type: Test) {
     description 'Runs all automated e2e (integration) tests as well as the tests that require user input for tests verification.'
-    maxParallelForks = Runtime.getRuntime().availableProcessors();
+    maxParallelForks = 1;
     include interactiveExpression
 }
 

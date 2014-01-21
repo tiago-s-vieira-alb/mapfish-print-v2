@@ -51,9 +51,13 @@ Ext.application({
         region: "center",
         layers: [
              new OpenLayers.Layer.TMS(
-                Env.layers.newYork.name,
+                Env.layers.newYork.name+'@EPSG:900913@',
                 Env.tmsUrl,
-                {layername: Env.layers.newYork.id,type :"jpeg"}
+
+                {
+                    layername: Env.layers.newYork.id,
+                    type :"png"
+                }
             ),
             new OpenLayers.Layer.WMS(
                 Env.layers.nyRoads.name,
@@ -65,7 +69,18 @@ Ext.application({
         map: {
                projection: "EPSG:900913"
         },
-        center: [-8236566.427097, 4976131.070529],
+
+/*
+        For some reason Geoserver is returning the TMS Layers in the wrong location geographically
+        The blue roads should be on top of the TMS layers but at the moment that is not possible.
+        So I am moving the center of the map so that it is in the center of the TMS layer.
+
+        The following is what the center "should" be.  In the future we need to fix this but for now I don't have time
+
+ center: [-8236566.427097, 4976131.070529],
+         */
+        center: [3570451.1286428, 9077780.2262548],
+
         zoom: 12
     });
     // The legend to optionally include on the printout
@@ -85,7 +100,12 @@ Ext.application({
         width: 780,
         height: 330,
         items: [mapPanel, legendPanel],
-        bbar: ["->", {
+        bbar: [{
+            text: "Center",
+            handler: function() {
+                var c = GeoExt.panel.Map.guess().map.getCenter();
+                Ext.Msg.alert(this.getText(), c.toString());
+            }}, "->", {
             text: "Print",
             handler: function() {
                 // convenient way to fit the print page to the visible map area
