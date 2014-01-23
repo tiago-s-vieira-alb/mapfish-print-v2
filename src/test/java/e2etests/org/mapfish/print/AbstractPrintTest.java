@@ -105,6 +105,7 @@ public abstract class AbstractPrintTest {
         });
 
         assertTrue(testResult.take().booleanValue());
+        frame.setVisible(false);
     }
 
     private void addImage(Container pane, BufferedImage image, String name) {

@@ -1,3 +1,4 @@
+# Summary
 This repository is a submodule of mapfish-print and contains e2e tests for the pdf and image generation.  It contains the code to
 start a Geoserver instance and run junit integration tests against the server to test as many of the mapfish-print options as possible.
 
@@ -17,6 +18,21 @@ Both tasks are gradle test tasks and more details on how to run single tests or 
 
     http://www.gradle.org/docs/current/userguide/java_plugin.html#sec:java_test
 
+
+# Test Server and SamplePages
+The geoserver in this project is configured with several webpages that show maps requesting tiles in the various layer types
+(TMS, WMS, WMTS, Vector, OSM, etc...)  These pages can be used to see how openlayer interacts with these different layer types.  The
+pages also have print buttons for submitting a print request for the given map.
+
+To experiment with these pages:
+
+1. Open a terminal
+2. `./gradlew jettyRunForeground`
+3. Open a web browser
+4. Enter `http://localhost:9876/e2egeoserver` in the location input
+
+The main page contains a list of all the pages and provides links to the respective pages.  Each page has a short description
+explaining what should be visible and printed.
 
 # Writing Tests
 
