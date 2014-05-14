@@ -80,7 +80,7 @@ task addPrintJarToGeoserver (type: Copy) {
     from printJarTask.archivePath
     from project.parent.configurations.runtime.files { file ->
         file.name.contains ("mapfish") || file.name.contains ("json") || file.name.contains ("pdfbox") ||
-                file.name.contains ("jyaml") || file.name.contains ("itext")
+                file.name.contains ("jyaml") || file.name.contains ("itext") || file.name.contains ("metrics")
     }
     into new File(geoserverDir, 'WEB-INF/lib')
 }
