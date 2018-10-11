@@ -4,6 +4,7 @@ apply plugin: 'jetty'
 repositories {
     maven {url "http://repo.opengeo.org/"}
     maven {url "http://maven.restlet.org"}
+    maven {url "https://repo.boundlessgeo.com/main/"}
 }
 
 configurations {
