@@ -21,7 +21,7 @@ package org.mapfish.print.output;
 
 import org.mapfish.print.RenderingContext;
 
-import com.itextpdf.text.DocumentException;
+import com.lowagie.text.DocumentException;
 
 /**
  * Interface for exporting the generated PDF from MapPrinter.

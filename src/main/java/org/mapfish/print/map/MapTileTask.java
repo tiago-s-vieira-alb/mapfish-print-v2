@@ -24,8 +24,8 @@ import java.io.IOException;
 import org.mapfish.print.RenderingContext;
 import org.pvalsecc.concurrent.OrderedResultsExecutor;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfContentByte;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfContentByte;
 
 /**
  * Task for loading and rendering a tile.

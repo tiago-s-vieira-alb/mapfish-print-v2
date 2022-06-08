@@ -19,7 +19,7 @@
 
 package org.mapfish.print.config.layout;
 
-import com.itextpdf.text.BaseColor;
+import java.awt.Color;
 
 import org.mapfish.print.InvalidValueException;
 import org.mapfish.print.PDFUtils;
@@ -90,19 +90,19 @@ public class BorderConfig {
         this.borderColorBottom = borderColorBottom;
     }
 
-    public BaseColor getBorderColorLeftVal(RenderingContext context, PJsonObject params) {
+    public Color getBorderColorLeftVal(RenderingContext context, PJsonObject params) {
         return ColorWrapper.convertColor(PDFUtils.evalString(context, params, borderColorLeft, null));
     }
 
-    public BaseColor getBorderColorTopVal(RenderingContext context, PJsonObject params) {
+    public Color getBorderColorTopVal(RenderingContext context, PJsonObject params) {
         return ColorWrapper.convertColor(PDFUtils.evalString(context, params, borderColorTop, null));
     }
 
-    public BaseColor getBorderColorRightVal(RenderingContext context, PJsonObject params) {
+    public Color getBorderColorRightVal(RenderingContext context, PJsonObject params) {
         return ColorWrapper.convertColor(PDFUtils.evalString(context, params, borderColorRight, null));
     }
 
-    public BaseColor getBorderColorBottomVal(RenderingContext context, PJsonObject params) {
+    public Color getBorderColorBottomVal(RenderingContext context, PJsonObject params) {
         return ColorWrapper.convertColor(PDFUtils.evalString(context, params, borderColorBottom, null));
     }
 

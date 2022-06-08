@@ -19,11 +19,13 @@
 
 package org.mapfish.print.config;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.html.WebColors;
+import java.awt.Color;
+import com.lowagie.text.html.WebColors;
 
 import org.ho.yaml.wrapper.AbstractWrapper;
 import org.ho.yaml.wrapper.SimpleObjectWrapper;
+
+import java.awt.*;
 
 /**
  * Yaml wrapper for allowing color fields. The supported formats are:
@@ -53,12 +55,20 @@ public class ColorWrapper extends AbstractWrapper implements SimpleObjectWrapper
         return getObject().toString();
     }
 
-    public static BaseColor convertColor(String color) throws IllegalArgumentException {
-        
+    public static Color convertColor(String color) throws IllegalArgumentException {
         if (color == null) {
             return null;
+        } else if (color.startsWith("#") && color.length() == 4) {
+            int r = Integer.parseInt(color.substring(1, 2)+color.substring(1, 2), 16);
+            int g = Integer.parseInt(color.substring(2, 3)+color.substring(2, 3), 16);
+            int b = Integer.parseInt(color.substring(3)+color.substring(3), 16);
+            return new Color(r,g,b);
         } else {
-            return WebColors.getRGBColor(color);
+            Color c = WebColors.getRGBColor(color);
+            if (c != null && c.getAlpha() == 0) {
+                c = new Color(c.getRed(),c.getGreen(),c.getBlue());
+            }
+            return c;
         }
 
     }

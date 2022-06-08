@@ -23,7 +23,7 @@ import org.mapfish.print.RenderingContext;
 import java.util.Collections;
 import java.util.List;
 
-import com.itextpdf.text.DocumentException;
+import com.lowagie.text.DocumentException;
 
 /**
  * OutputFormat and factory that Outputs PDF objects

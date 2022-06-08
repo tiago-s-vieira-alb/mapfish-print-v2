@@ -26,8 +26,8 @@ import org.pvalsecc.concurrent.OrderedResultsExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfContentByte;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfContentByte;
 
 /**
  * An instance of this class is in charge of loading in parallel the tiles of a

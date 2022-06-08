@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-import com.itextpdf.text.DocumentException;
+import com.lowagie.text.DocumentException;
 
 /**
  * Print Output that generate a PNG. It will first generate a PDF ant convert it to PNG

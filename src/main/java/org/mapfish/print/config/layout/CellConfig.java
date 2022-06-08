@@ -19,7 +19,7 @@
 
 package org.mapfish.print.config.layout;
 
-import com.itextpdf.text.BaseColor;
+import java.awt.Color;
 import java.awt.Color;
 
 import org.mapfish.print.PDFUtils;
@@ -27,7 +27,7 @@ import org.mapfish.print.RenderingContext;
 import org.mapfish.print.config.ColorWrapper;
 import org.mapfish.print.utils.PJsonObject;
 
-import com.itextpdf.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPCell;
 
 /**
  * Bean for configuring a cell's borders, paddings and background color.
@@ -105,7 +105,7 @@ public class CellConfig extends BorderConfig {
         this.backgroundColor = backgroundColor;
     }
 
-    public BaseColor getBackgroundColorVal(RenderingContext context, PJsonObject params) {
+    public Color getBackgroundColorVal(RenderingContext context, PJsonObject params) {
         return ColorWrapper.convertColor(PDFUtils.evalString(context, params, backgroundColor, null));
     }
 

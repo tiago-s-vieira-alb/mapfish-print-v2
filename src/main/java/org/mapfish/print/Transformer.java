@@ -19,16 +19,15 @@
 
 package org.mapfish.print;
 
-import com.itextpdf.awt.geom.AffineTransform;
-
 import org.geotools.geometry.DirectPosition2D;
 import org.geotools.referencing.CRS;
-import org.mapfish.print.config.Config;
 import org.geotools.referencing.GeodeticCalculator;
 import org.mapfish.print.utils.DistanceUnit;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
 
-import com.itextpdf.text.pdf.PdfContentByte;
+import com.lowagie.text.pdf.PdfContentByte;
+
+import java.awt.geom.AffineTransform;
 
 /**
  * Class that deals with the geometric tranformation between the geographic,

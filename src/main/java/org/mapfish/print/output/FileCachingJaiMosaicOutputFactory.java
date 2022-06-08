@@ -19,7 +19,7 @@
 
 package org.mapfish.print.output;
 
-import com.itextpdf.text.DocumentException;
+import com.lowagie.text.DocumentException;
 import com.sun.media.jai.codec.FileSeekableStream;
 import org.apache.log4j.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;

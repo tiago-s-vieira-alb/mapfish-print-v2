@@ -19,8 +19,8 @@
 
 package org.mapfish.print;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Font;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Font;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
