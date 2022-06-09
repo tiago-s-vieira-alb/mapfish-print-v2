@@ -125,7 +125,7 @@ public class RenderingContext {
      * The default (*) context parameters are added to the set.
      * 
      * @param context
-     * @return
+     * @return set of parameters for context
      */
     public Map<String, PJsonObject> getMergeableParams(String context) {
         Map<String, PJsonObject> result = new HashMap<String, PJsonObject>();

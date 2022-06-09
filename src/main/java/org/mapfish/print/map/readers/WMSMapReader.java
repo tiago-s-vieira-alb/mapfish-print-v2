@@ -115,6 +115,7 @@ public class WMSMapReader extends TileableMapReader {
     }
     
     @Override
+    @SuppressWarnings("deprecation")
     protected String getMergeableValue(PJsonObject customParams,
             final List<String> toBeSkipped, String key) throws JSONException {
         // adds support for an array of values for mergeable parameters

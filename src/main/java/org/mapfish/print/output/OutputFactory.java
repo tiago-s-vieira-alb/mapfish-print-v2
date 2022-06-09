@@ -28,7 +28,6 @@ import java.util.TreeSet;
 import org.apache.log4j.Logger;
 import org.mapfish.print.config.Config;
 import org.mapfish.print.utils.PJsonObject;
-import org.springframework.beans.factory.annotation.Required;
 
 /**
  * User: jeichar
@@ -44,7 +43,7 @@ public class OutputFactory {
      *
      * @param formatFactories
      */
-    @Required
+    // @Required
     public void setFormatFactories(List<OutputFormatFactory> formatFactories) {
         this.formatFactories = formatFactories;
     }

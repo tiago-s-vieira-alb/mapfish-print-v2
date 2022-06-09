@@ -26,8 +26,8 @@ public class PrintParams {
 
     /**
      * Create a new params object with a different output stream
-     * @param newOut
-     * @return
+     * @param newOut Output stream
+     * @return Use config to construct new PrintParams with provided output stream
      */
     public PrintParams withOutput(FileOutputStream newOut) {
         return new PrintParams(config, configDir, jsonSpec, newOut, headers);

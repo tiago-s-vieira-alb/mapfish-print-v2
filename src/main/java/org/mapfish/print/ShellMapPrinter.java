@@ -112,6 +112,7 @@ public class ShellMapPrinter {
         System.exit(-1);
     }
 
+    @SuppressWarnings("deprecation")
     public void run() throws IOException, JSONException, DocumentException, InterruptedException {
         MapPrinter printer = context.getBean(MapPrinter.class);
         printer.setYamlConfigFile(new File(config));

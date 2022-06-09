@@ -190,6 +190,7 @@ public final class FArrayBlockingQueue<E> extends AbstractQueue<E> implements Bl
      *                 the access order is unspecified.
      * @throws IllegalArgumentException if <tt>capacity</tt> is less than 1
      */
+    @SuppressWarnings("unchecked")
     private FArrayBlockingQueue(int capacity, boolean fair) {
         if (capacity <= 0) {
             throw new IllegalArgumentException();
@@ -519,6 +520,8 @@ public final class FArrayBlockingQueue<E> extends AbstractQueue<E> implements Bl
         }
     }
 
+
+    @SuppressWarnings("unchecked")
     public <T> T[] toArray(T[] a) {
         final E[] items = this.items;
         final ReentrantLock lock = this.lock;
