@@ -275,7 +275,7 @@ if (Boolean.parseBoolean(enablePublishing)) {
         }
         snapshotRepository(url: "https://repo.osgeo.org/repository/geonetwork-snapshots/")  {
           authentication(userName: osgeoUsername, password: osgeoPassword)
-          uniqueVersion = false
+          uniqueVersion = true
         }
         artifactFilterMapping.each {entry ->
           addFilter(entry.key) { artifact, file ->
