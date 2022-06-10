@@ -8,7 +8,7 @@ defaultTasks 'test', 'jar', 'war', 'imageMagickWar', 'standalone', 'install'
 
 allprojects {
     group = 'org.mapfish.print'
-    version = '2.2.0'
+    version = '2.2-SNAPSHOT'
 
     apply plugin: 'java'
     apply plugin: 'eclipse'
@@ -249,25 +249,32 @@ configure(install.repositories.mavenInstaller) {
  * http://jedicoder.blogspot.ch/2011/11/automated-gradle-project-deployment-to.html
  *
  * For deploying see section about "Create a gradle properties file"
+ *
+ * 1. Create ~/.gradle file based on template provided
+ * 2. Use osgeo id credentials to deploy to repo.osgeo.org
+ *
+ * enablePublishing=true
+ * osgeoUsername=gtbuild
+ * osgeoPassword=....
  */
 // need to sign jars for uploading releases to maven central
 if (Boolean.parseBoolean(enablePublishing)) {
-  apply plugin: 'signing'
-  signing {
-    sign configurations.archives
-  }
+//  apply plugin: 'signing'
+//  signing {
+//    sign configurations.archives
+//  }
 
   uploadArchives {
        //  dependsOn test, ':e2e-tests:interactiveTest'
     repositories {
       mavenDeployer {
-        beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+        // beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
-        repository(url: "https://$host/service/local/staging/deploy/maven2") {
-          authentication(userName: sonatypeUsername, password: sonatypePassword)
+        repository(url: "https://repo.osgeo.org/repository/geonetwork-releases/") {
+          authentication(userName: osgeoUsername, password: osgeoPassword)
         }
-        snapshotRepository(url: "https://$host/content/repositories/snapshots")  {
-          authentication(userName: sonatypeUsername, password: sonatypePassword)
+        snapshotRepository(url: "https://repo.osgeo.org/repository/geonetwork-snapshots/")  {
+          authentication(userName: osgeoUsername, password: osgeoPassword)
           uniqueVersion = false
         }
         artifactFilterMapping.each {entry ->
@@ -320,7 +327,7 @@ if (Boolean.parseBoolean(enablePublishing)) {
                developer {
                    id 'miblon'
                    name 'Milo van der Linden'
-            }
+                }
             }
             mailingLists {
               mailingList {
