@@ -1,11 +1,12 @@
 package e2etests.org.mapfish.print;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.pdf.PdfWriter;
-import org.apache.pdfbox.pdfviewer.PageDrawer;
+import com.lowagie.text.Document;
+import com.lowagie.text.pdf.PdfWriter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
 import org.mapfish.print.Constants;
 import org.mapfish.print.MapPrinter;
 import org.mapfish.print.RenderingContext;
@@ -158,38 +159,23 @@ public abstract class AbstractPrintTest {
         PDDocument pdf = PDDocument.load(new ByteArrayInputStream(outputStream.toByteArray()));
 
         try {
-            @SuppressWarnings("unchecked")
-            List<PDPage> pages = pdf.getDocumentCatalog().getAllPages();
-
-            return convertToImage(pages.get(0));//.convertToImage(BufferedImage.TYPE_3BYTE_BGR, 72);
+            return convertToImage(pdf);
         } finally {
             pdf.close();
         }
     }
 
-    protected BufferedImage convertToImage(PDPage pdPage) throws IOException {
-        PDRectangle mBox = pdPage.findMediaBox();
-        float widthPt = mBox.getWidth();
-        float heightPt = mBox.getHeight();
-        float scaling = 1;
-        int widthPx = Math.round(widthPt * scaling);
-        int heightPx = Math.round(heightPt * scaling);
-        //TODO The following reduces accuracy. It should really be a Dimension2D.Float.
-        Dimension pageDimension = new Dimension( (int)widthPt, (int)heightPt );
+    /**
+     * Draws the media box from the first page in the provided pdf document.
+     *
+     * @param pdf Document to draw
+     * @return image drawn of mediaBox
+     * @throws IOException
+     */
+    protected BufferedImage convertToImage(PDDocument pdf) throws IOException {
+        PDFRenderer pdfRenderer = new PDFRenderer(pdf);
 
-        BufferedImage retval = new BufferedImage( widthPx, heightPx, BufferedImage.TYPE_3BYTE_BGR);
-        Graphics2D graphics = (Graphics2D)retval.getGraphics();
-        Map<Object, Object> hints = new HashMap<Object, Object>();
-        hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        hints.put(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        graphics.addRenderingHints(hints);
-        graphics.setBackground( Color.WHITE );
-        graphics.clearRect(0, 0, retval.getWidth(), retval.getHeight());
-        PageDrawer drawer = new PageDrawer();
-        drawer.drawPage( graphics, pdPage, pageDimension );
-
-        graphics.dispose();
-        return retval;
+        return pdfRenderer.renderImage(0,1.0f, ImageType.RGB);
     }
 
 
