@@ -2,6 +2,10 @@
 
 ## Release 2.2.0
 
+* TBD
+
+## Release 2.2.0
+
 * Change from iText to OpenPDF library
 * Update to PDFBox 
 * Upgrade to Gradle 3.0 for compatibility with IntelliJ IDE
