@@ -27,18 +27,15 @@ task extractGeoserver (type: Copy) {
 }
 
 extractGeoserver.doLast {
-    def offLoggingConfig = new File(geoserverDataDir, "logs/OFF_LOGGING.properties")
     logger.info("Writing an updated Geoserver log configuration to suppress geoserver output")
     new File(geoserverDataDir, "logging.xml").withWriter "UTF-8", { writer ->
         def builder = new groovy.xml.MarkupBuilder(writer)
         builder.logging {
-            level "QUIET_LOGGING.properties"
+            level "QUIET_LOGGING"
             location "${geoserverDir}/geoserver.log"
             stdOutLogging "false"
         }
     }
-    offLoggingConfig.parentFile.mkdirs()
-    offLoggingConfig.setText("log4j.debug=FALSE\nlog4j.rootLogger=OFF", "UTF-8")
 
     new File(geoserverDir, "index.html").withWriter "UTF-8",{writer ->
         def builder = new groovy.xml.MarkupBuilder(writer)

@@ -19,6 +19,14 @@ The following command will run the mapfish printer.  If you do no supply any -Dx
 ```bash
 ./gradlew run -Dconfig=samples/config.yaml -Dspec=samples/spec.json -Doutput=/tmp/print-out.pdf
 ```
+## Install
+
+To install SNAPSHOT into local maven repository:
+
+```bash
+./gradlew install
+```
+
 ## Deploy
 
 1. Create ``~/.gradle`` file based on template ``gradle.properties`` provided
