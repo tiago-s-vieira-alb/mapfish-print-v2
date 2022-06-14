@@ -27,9 +27,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.geotools.util.Base64;
 import org.mapfish.print.config.Key;
-
-import com.itextpdf.text.pdf.codec.Base64;
 
 public class GoogleURLSigner {
     // This variable stores the binary key, which is computed from the string

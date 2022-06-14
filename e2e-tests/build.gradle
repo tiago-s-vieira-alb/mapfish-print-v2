@@ -2,9 +2,8 @@ apply plugin: 'war'
 apply plugin: 'jetty'
 
 repositories {
-    maven {url "http://repo.opengeo.org/"}
+    maven {url "https://repo.osgeo.org/repository/release/"}
     maven {url "http://maven.restlet.org"}
-    maven {url "https://repo.boundlessgeo.com/main/"}
 }
 
 configurations {
@@ -12,10 +11,10 @@ configurations {
 }
 
 dependencies {
-    geoserver ('org.geoserver.web:web-app:2.4.3') {
+    geoserver ('org.geoserver.web:gs-web-app:2.21.0') {
         transitive = false;
     }
-    testCompile (rootProject, "junit:junit:${project.junitVersion}", 'org.mockito:mockito-core:1.9.5', "com.google.guava:guava:15.0")
+    testCompile (rootProject, "junit:junit:${project.junitVersion}", 'org.mockito:mockito-core:1.9.5', "com.google.guava:guava:30.1-jre")
 }
 
 def geoserverDir = "$buildDir/geoserver"
@@ -33,7 +32,7 @@ extractGeoserver.doLast {
     new File(geoserverDataDir, "logging.xml").withWriter "UTF-8", { writer ->
         def builder = new groovy.xml.MarkupBuilder(writer)
         builder.logging {
-            level "OFF_LOGGING.properties"
+            level "QUIET_LOGGING.properties"
             location "${geoserverDir}/geoserver.log"
             stdOutLogging "false"
         }
@@ -81,7 +80,8 @@ task addPrintJarToGeoserver (type: Copy) {
     from printJarTask.archivePath
     from project.parent.configurations.runtime.files { file ->
         file.name.contains ("mapfish") || file.name.contains ("json") || file.name.contains ("pdfbox") ||
-                file.name.contains ("jyaml") || file.name.contains ("itext") || file.name.contains ("metrics")
+                file.name.contains ("jyaml") || file.name.contains ("openpdf") || file.name.contains ("metrics") ||
+                file.name.contains ("xerces")
     }
     into new File(geoserverDir, 'WEB-INF/lib')
 }
@@ -120,17 +120,17 @@ gradle.taskGraph.whenReady {taskGraph ->
 
 String interactiveExpression = '**/*InteractiveTest.class'
 test {
-    dependsOn ':compileJava', 'testClasses', 'jettyRun'
+    dependsOn ':compileJava', 'testClasses' //, 'jettyRun'
     description 'Runs all automated e2e (integration) tests.'
     maxParallelForks = Runtime.getRuntime().availableProcessors();
     exclude interactiveExpression
 }
 
-task interactiveTest (dependsOn: test, type: Test) {
-    description 'Runs all automated e2e (integration) tests as well as the tests that require user input for tests verification.'
-    maxParallelForks = 1;
-    include interactiveExpression
-}
+//task interactiveTest (dependsOn: test, type: Test) {
+//    description 'Runs all automated e2e (integration) tests as well as the tests that require user input for tests verification.'
+//    maxParallelForks = 1;
+//    include interactiveExpression
+//}
 
 //uploadArchives {
 //    // do nothing because this project doesn't upload anything

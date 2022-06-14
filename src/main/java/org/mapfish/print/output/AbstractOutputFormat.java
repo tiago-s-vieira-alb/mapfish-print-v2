@@ -4,11 +4,11 @@ import org.mapfish.print.Constants;
 import org.mapfish.print.RenderingContext;
 import org.mapfish.print.config.layout.Layout;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.PdfStream;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.PdfReader;
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.pdf.PdfStream;
+import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.PdfReader;
 
 public abstract class AbstractOutputFormat implements OutputFormat {
 

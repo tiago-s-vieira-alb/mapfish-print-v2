@@ -36,7 +36,7 @@ public class ServerInfoCache<T extends ServiceInfo> {
 
     private final ServiceInfoLoader<T> loader;
 
-    public ServerInfoCache(ServiceInfoLoader loader) {
+    public ServerInfoCache(ServiceInfoLoader<T> loader) {
         this.loader = loader;
     }
 
@@ -168,7 +168,7 @@ public class ServerInfoCache<T extends ServiceInfo> {
          *
          * @param element parent element of elements to get
          * @param tagName child names
-         * @return
+         * @return array of text for each child matching tagName
          */
         public static ArrayList<String> getTextContentOfChildren(Element element, String tagName) {
 
@@ -200,7 +200,7 @@ public class ServerInfoCache<T extends ServiceInfo> {
          * @param element
          * @param path
          * @param defaultValue
-         * @return
+         * @return text for path (or default value)
          */
         public static String getTextContextFromPath(Element element, String path, String defaultValue) {
             return getTextContextFromPath(element, Arrays.asList(path.split("/")), defaultValue);

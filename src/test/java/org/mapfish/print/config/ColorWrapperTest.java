@@ -21,7 +21,7 @@ package org.mapfish.print.config;
 
 import static org.junit.Assert.*;
 
-import com.itextpdf.text.BaseColor;
+import java.awt.Color;
 
 import org.junit.Test;
 
@@ -31,46 +31,46 @@ public class ColorWrapperTest extends PrintTestCase {
 
     @Test
     public void testHexa() {
-        ColorWrapper wrapper = new ColorWrapper(BaseColor.class);
+        ColorWrapper wrapper = new ColorWrapper(Color.class);
 
         wrapper.setObject("#1256A8");
-        assertEquals(new BaseColor(0x12, 0x56, 0xA8), wrapper.getObject());
+        assertEquals(new Color(0x12, 0x56, 0xA8), wrapper.getObject());
 
         wrapper.setObject("#1256b8");
-        assertEquals(new BaseColor(0x12, 0x56, 0xb8), wrapper.getObject());
+        assertEquals(new Color(0x12, 0x56, 0xb8), wrapper.getObject());
     }
 
     @Test
     public void testHexaAlpha() {
-        ColorWrapper wrapper = new ColorWrapper(BaseColor.class);
+        ColorWrapper wrapper = new ColorWrapper(Color.class);
 
         wrapper.setObject("#1256b8");
-        assertEquals(new BaseColor(0x12, 0x56, 0xb8), wrapper.getObject());
+        assertEquals(new Color(0x12, 0x56, 0xb8), wrapper.getObject());
 
         wrapper.setObject("#FF56b8");
-        assertEquals(new BaseColor(0xFF, 0x56, 0xb8), wrapper.getObject());
+        assertEquals(new Color(0xFF, 0x56, 0xb8), wrapper.getObject());
 
         wrapper.setObject("#FFF");
-        assertEquals(new BaseColor(0xFF, 0xFF, 0xFF), wrapper.getObject());
+        assertEquals(new Color(0xFF, 0xFF, 0xFF), wrapper.getObject());
     }
 
     @Test
     public void testText() {
-        ColorWrapper wrapper = new ColorWrapper(BaseColor.class);
+        ColorWrapper wrapper = new ColorWrapper(Color.class);
 
         wrapper.setObject("white");
-        assertEquals(BaseColor.WHITE, wrapper.getObject());
+        assertEquals(Color.WHITE, wrapper.getObject());
 
         wrapper.setObject("Red");
-        assertEquals(BaseColor.RED, wrapper.getObject());
+        assertEquals(Color.RED, wrapper.getObject());
 
         wrapper.setObject("Silver");
-        assertEquals(BaseColor.LIGHT_GRAY, wrapper.getObject());
+        assertEquals(Color.LIGHT_GRAY, wrapper.getObject());
 
         wrapper.setObject("BLACK");
-        assertEquals(BaseColor.BLACK, wrapper.getObject());
+        assertEquals(Color.BLACK, wrapper.getObject());
 
         wrapper.setObject("yellow");
-        assertEquals(BaseColor.YELLOW, wrapper.getObject());
+        assertEquals(Color.YELLOW, wrapper.getObject());
     }
 }

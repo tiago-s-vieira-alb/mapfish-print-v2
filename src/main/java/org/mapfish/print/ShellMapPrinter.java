@@ -43,9 +43,8 @@ import org.pvalsecc.opts.InvalidOption;
 import org.pvalsecc.opts.Option;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import com.itextpdf.text.DocumentException;
+import com.lowagie.text.DocumentException;
 
 /**
  * A shell version of the MapPrinter. Can be used for testing or for calling
@@ -113,6 +112,7 @@ public class ShellMapPrinter {
         System.exit(-1);
     }
 
+    @SuppressWarnings("deprecation")
     public void run() throws IOException, JSONException, DocumentException, InterruptedException {
         MapPrinter printer = context.getBean(MapPrinter.class);
         printer.setYamlConfigFile(new File(config));

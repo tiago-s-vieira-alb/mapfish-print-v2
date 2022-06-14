@@ -30,7 +30,7 @@ public class Maps {
      * 
      * @param parent
      * @param name
-     * @return
+     * @return map configuration
      */
     public static PJsonObject getMapRoot(PJsonObject parent, String name) {
         // if we have multiple maps they are configured in a maps block

@@ -4,9 +4,9 @@
  */
 package org.mapfish.print.legend;
 
-import com.itextpdf.text.Font;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
+import com.lowagie.text.Font;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 import org.mapfish.print.utils.PJsonObject;
 
 /**

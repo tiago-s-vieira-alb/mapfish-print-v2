@@ -19,7 +19,7 @@
 
 package org.mapfish.print.config.layout;
 
-import com.itextpdf.text.Paragraph;
+import com.lowagie.text.Paragraph;
 
 public enum HorizontalAlign {
     LEFT(Paragraph.ALIGN_LEFT),

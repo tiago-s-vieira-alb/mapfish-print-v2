@@ -21,9 +21,9 @@ package org.mapfish.print;
 
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.pdf.ByteBuffer;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.pdf.ByteBuffer;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;

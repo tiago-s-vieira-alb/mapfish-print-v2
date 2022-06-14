@@ -19,14 +19,14 @@
 
 package org.mapfish.print.config.layout;
 
-import com.itextpdf.awt.PdfGraphics2D;
 import java.awt.Graphics2D;
-import com.itextpdf.awt.geom.AffineTransform;
+import java.awt.geom.AffineTransform;
 import java.awt.print.PageFormat;
 import java.awt.print.Paper;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import com.lowagie.text.pdf.PdfGraphics2D;
 import org.apache.batik.ext.awt.RenderingHintsKeyExt;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.print.PrintTranscoder;
@@ -37,9 +37,9 @@ import org.mapfish.print.PDFUtils;
 import org.mapfish.print.RenderingContext;
 import org.mapfish.print.utils.PJsonObject;
 
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfContentByte;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.PdfContentByte;
 
 /**
  * Configuration and logic to add an !image block.

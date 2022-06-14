@@ -167,6 +167,7 @@ public class GetOptions {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static void handleOther(Object dest, String name, String value) throws InvalidOption {
         try {
             Field opt = getField(dest, name);

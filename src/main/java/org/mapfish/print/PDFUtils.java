@@ -22,20 +22,20 @@ package org.mapfish.print;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 
-import com.itextpdf.awt.PdfGraphics2D;
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.BaseFont;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfTemplate;
+import com.lowagie.text.BadElementException;
+import com.lowagie.text.Chunk;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.FontFactory;
+import com.lowagie.text.Image;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.PdfContentByte;
+import com.lowagie.text.pdf.PdfGraphics2D;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfTemplate;
 import org.apache.batik.bridge.BridgeContext;
 import org.apache.batik.bridge.DocumentLoader;
 import org.apache.batik.bridge.GVTBuilder;
@@ -417,7 +417,7 @@ public class PDFUtils {
 
     private static final Pattern VAR_REGEXP = Pattern.compile("\\$\\{([^}]+)\\}");
 
-    public static Phrase renderString(RenderingContext context, PJsonObject params, String val, com.itextpdf.text.Font font, String mapName) throws BadElementException {
+    public static Phrase renderString(RenderingContext context, PJsonObject params, String val, com.lowagie.text.Font font, String mapName) throws BadElementException {
         Phrase result = new Phrase();
         while (true) {
             Matcher matcher = VAR_REGEXP.matcher(val);
@@ -696,15 +696,15 @@ public class PDFUtils {
     		pdfFont = FontFactory.getFont(font, fontEncoding, myFontSize, myFontWeight);
     	}
     	else {
-	        Font.FontFamily myFontValue;
+	        int myFontValue;
 	        if (fontFamily.toUpperCase().contains("COURIER")) {
-	            myFontValue = Font.FontFamily.COURIER;
+	            myFontValue = Font.COURIER;
 	        } else if (fontFamily.toUpperCase().contains("HELVETICA")) {
-	            myFontValue = Font.FontFamily.HELVETICA;
+	            myFontValue = Font.HELVETICA;
 	        } else if (fontFamily.toUpperCase().contains("ROMAN")) {
-	            myFontValue = Font.FontFamily.TIMES_ROMAN;
+	            myFontValue = Font.TIMES_ROMAN;
 	        } else {
-	            myFontValue = Font.FontFamily.HELVETICA;
+	            myFontValue = Font.HELVETICA;
 	        }
 	        pdfFont = new Font(myFontValue, myFontSize, myFontWeight);
     	}
