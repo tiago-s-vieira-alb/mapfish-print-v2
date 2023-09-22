@@ -151,3 +151,17 @@ To create a release:
    
 7. Add any release-notes to the tag in GitHub.
 
+9. Update the ``pom.xml`` against to return to SNAPSHOT developmentt:
+   
+   ```xml
+   <groupId>org.mapfish.print</groupId>
+   <artifactId>print-lib</artifactId>
+   <version>2.3-SNAPSHOT</version>
+   ```
+   
+   And push up the change:
+   ```bash
+   git add pom.xml
+   git commit -m "Development 2.3-SNAPSHOT"
+   git push
+   ```
