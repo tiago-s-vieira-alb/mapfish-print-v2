@@ -27,7 +27,7 @@ Release notes:
 * Release is focused on ``print-lib`` required for MapStore, GeoNode and GeoServer projects
 * Deploy to OSGeo repository
 * Updated docs to reflect new functionality
-* Added user-doc bundle and publication to *
+* Added user-doc bundle and publication to https://mapfish.github.io/mapfish-print-v2/
 
 
 ## Release 2.2.0

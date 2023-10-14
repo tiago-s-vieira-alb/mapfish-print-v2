@@ -5,6 +5,8 @@ This project is no longer actively maintained by [camptocamp](https://www.campto
 This project is no longer fully functional, consisting of ``mapfish-print-lib.jar`` distribution used
 by downstream projects as described below.
 
+[MapFish Print 2.3 documentation](https://mapfish.github.io/mapfish-print-v2/) 
+
 ## Background
 
 Downstream projects making use of this technology:
