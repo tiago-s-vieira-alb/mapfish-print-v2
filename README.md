@@ -134,8 +134,16 @@ To create a release:
    <artifactId>print-lib</artifactId>
    <version>2.3.0</version>
    ```
+
+2. Double `ReleaseNotes.md` change-log and update if ndded.
+
+3. Build docs:
    
-2. Build confirming creation of ``print-lib-2.3.0.jar``
+   ```bash
+   sphinx-build -b html -d docs/_build/doctrees docs docs/_build/html
+   ```
+   
+3. Build confirming creation of ``print-lib-2.3.0.jar``
 
    ```bash
    mvn clean install
@@ -167,6 +175,8 @@ To create a release:
    * https://github.com/mapfish/mapfish-print-v2/tags
    
 7. Add any release-notes to the tag in GitHub.
+
+   Upload jar and docs bundles from target folder.
 
 9. Update the ``pom.xml`` against to return to SNAPSHOT developmentt:
    
