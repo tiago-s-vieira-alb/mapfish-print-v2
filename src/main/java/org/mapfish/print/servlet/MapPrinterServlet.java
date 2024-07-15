@@ -21,6 +21,7 @@ package org.mapfish.print.servlet;
 
 import com.google.common.io.CharStreams;
 import com.google.common.io.Closer;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.pvalsecc.misc.FileUtilities;
@@ -624,7 +625,7 @@ public class MapPrinterServlet extends BaseMapServlet {
                 try {
                     return new SimpleDateFormat(pattern).format(date);
                 } catch (Exception e) {
-                    LOGGER.error("Unable to format timestamp according to pattern: "+pattern, e);
+                    LOGGER.log(Level.WARN,String.format("Unable to format timestamp according to pattern: ${%s}",pattern), e);
                     return "${"+pattern+"}";
                 }
             }
