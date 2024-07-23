@@ -109,7 +109,7 @@ See https://wiki.osgeo.org/wiki/SAC:Repo to obtain credentials:
 ```
 ## Docs
 
-Uses Python3 environment for ***sphinx-build* documentation:
+Uses Python3 environment for **sphinx-build** documentation:
 
 ```
 pip3 install -r docs/requirements.txt

@@ -1,5 +1,28 @@
 # Mapfish Print 2 Release notes
 
+## Release 2.3.1
+
+Security considerations:
+
+* Fix for external entity injection (XXE)
+
+Release notes:
+
+* Change JSON Parser from jyaml 1.3 to jackson-dataformat-yaml 2.16.1
+  
+  This is a breaking change:
+  
+  Make sure the properties have a space between the name and value:  ``mask:0.0.0.0`` --> ``mask: 0.0.0.0``
+  
+  Remove ``@`` from references: ``username: @shared.privileged.geoserver.user@`` --> ``username: shared.privileged.geoserver.user``
+  
+  Remove any reference to common properties or inherited sections: ``footer: *commonFooter``
+
+* Support custom pdf layer name (sent in request JSON parameter "pdfLayerName")
+* Upgrade to GeoTools 31.3
+* Bump Xalan from 2.7.0 to 2.7.3
+* Update batik version to 1.17
+
 ## Release 2.3.0
 
 Release notes:
