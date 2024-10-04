@@ -85,7 +85,6 @@ public class MapPrinterServlet extends BaseMapServlet {
     /**
      * Map of temporary files.
      */
-    private final Map<String, TempFileMetadata> tempFilesMetadataCache = new ConcurrentHashMap<String, TempFileMetadata>();
     private String app = null;
     private File tempDir = null;
     private String encoding = null;
@@ -232,11 +231,15 @@ public class MapPrinterServlet extends BaseMapServlet {
         addTempFileMetaData(tempFileMetadata, id);
     }
 
+    /**
+     * Creates a json file to hold the meta-data for the temp file.
+     * @param tempFileMetadata Object holding the information regarding the file to be printed
+     * @param id identifier for the temp file and is being used to identify the meta data file
+     */
     protected void addTempFileMetaData(TempFileMetadata tempFileMetadata, String id) {
         try {
             objectMapper.writeValue(File.createTempFile(TEMP_FILE_METADATA_PREFIX + id + "_",
                     ".json", getTempDir()), tempFileMetadata);
-            tempFilesMetadataCache.put(id, tempFileMetadata);
         } catch (IOException e) {
             LOGGER.debug("Unable to persist tempFileMetadata", e);
         }
@@ -286,15 +289,24 @@ public class MapPrinterServlet extends BaseMapServlet {
         sendPdfFile(httpServletResponse, tempFileMetadata, Boolean.parseBoolean(req.getParameter("inline")));
     }
 
-    private TempFileMetadata getTempFileMetadata(String id) throws IOException {
-        TempFileMetadata tempFileMetadata = tempFilesMetadataCache.get(id);
-        if (tempFileMetadata == null) {
+    /**
+     *
+     * @param id identifier to fetch the meta-data json file from the disk.
+     * @return
+     */
+    private TempFileMetadata getTempFileMetadata(String id) {
+        TempFileMetadata tempFileMetadata = null;
+            // get from disk
             File[] files = getTempDir().listFiles(file -> file.getName().startsWith(TEMP_FILE_METADATA_PREFIX + id + "_"));
             if (0 != files.length) {
-                tempFileMetadata = objectMapper.readValue(files[0], TempFileMetadata.class);
-                tempFilesMetadataCache.put(id, tempFileMetadata);
+                try {
+                    tempFileMetadata = objectMapper.readValue(files[0], TempFileMetadata.class);
+                } catch (IOException e) {
+                    // could be deleted while the reading has not started
+                    LOGGER.info("File requested for the id ::" + id + " has been deleted");
+                    tempFileMetadata = null;
+                }
             }
-        }
         return tempFileMetadata;
     }
 
@@ -573,8 +585,6 @@ public class MapPrinterServlet extends BaseMapServlet {
             for (File file : tempDirFiles) {
                 try {
                     if (shouldFileBeDelete(file)) {
-                        String fileName = file.getName();
-                        tempFilesMetadataCache.remove(fileName.substring(TEMP_FILE_METADATA_PREFIX.length(), fileName.indexOf("_")));
                         deleteFile(file);
                     }
                 } catch (IOException e) {
@@ -590,7 +600,7 @@ public class MapPrinterServlet extends BaseMapServlet {
         public final String printedLayoutName;
         public final String outputFileName;
         public final String contentType;
-        private final File tempFile;
+        public final File tempFile;
         public String suffix;
 
         public TempFileMetadata(File tempFile, PJsonObject jsonSpec, OutputFormat format) {
