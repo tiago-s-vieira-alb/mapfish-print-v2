@@ -4,6 +4,7 @@ Upgrade
 Version 2.3.2
 -------------
 
+* Support for printing in a cloud environment and in an environment without sticky sessions : generates a requested printout metadata json file and stores it in the tempDir. With this information peristed, there is no need for sticky sessions and printing module can be used in a cloud environment with shared volume.
 Under development.
 
 Version 2.3.1
